@@ -45,7 +45,7 @@ YAML for configuration files makes a lot of sense. The structure looks nicer and
 
 If you wanted to, you could annotate the Spring main class with every annotation you need for your project, and then include all your code in one file. Bad practice, but a possibility. 
 
-If you're using Lombok, you can delete your args contstructor in your Spring Controller class. Just include your Bean (no @Autowired) and add the @RequiredArgsConstructor annotation from Lombok to the class. HOWEVER, **only works from Spring 4.x**. So probably won't work for UI. 
+If you're using Lombok, you can delete your args contstructor in your Spring Controller class. Just include your Bean (no @Autowired) and add the @RequiredArgsConstructor annotation from Lombok to the class. However, **only works from Spring 4.x**. So probably won't work for UI. 
 
 ```
 @RestController
@@ -146,3 +146,89 @@ This feature is seamless in Java. Venkat thinks that's dangerous. There's nothin
 This is great for a cloud application, because this decreases the processing/memory requirements needed to run a multithreaded program on a cloud provider's hardware. For instance, an app running on an EC2 instance will work more efficiently, reducing the cost of operation for you. 
 
 http://www.agiledeveloper.com/downloads.html
+
+##Migrating to Java Modules##
+***Venkat Subramaniam***
+
+Introduced in Java 9. 
+One person raised their hand when Venkat asked "Who still uses CORBA.?" Jesus that poor poor guy. 
+
+The motivation behind modules is make it easier to exclude dependencies I don't need. For instance, Swing and CORBA. Most people don't need them because they'll never, ever use them, but they're still in the JDK. 
+
+> A guy told me the other day that modules weren't necessary. I asked how? He said 
+> "Because I'm using Maven." I had to tell him the bad news, that Maven uses you.
+
+To check the modules in a JDK, use `java --list-modules`
+
+CORBA and JavaFX, among other modules, have been removed from Java 10. 9 introduced the module system, 10, 11 and 12 have been removing modules to shrink the JDK size.
+
+Modules improve security because with old Java, it's possible for a class to access another class if it has the same package name. Modules work differently. 
+
+Modules `require` other modules, but they `export` their packages. 
+
+Java 9 is the most significant release of Java, because it is mandatory. If you want to use Java 9, you have to write modular code. It's not opt-in. 
+
+To define a module, add a file called `module-info.java`. This file has to go in the root directory of your project, because when you build it has to be in the root directory of your Jar. 
+
+Java won't make you use different module and package names, but you should
+
+module-info.java in package First
+```
+module com.agiledeveloper.thefirst {
+	exports com.agiledeveloper.first;
+}
+```
+
+module-info.java in package Second
+```
+module com.agiledeveloper.thesecond {
+	requires com.agiledeveloper.first;
+}
+
+
+```
+
+`jar -f output/mlib/first.jar -d`
+Lists module contents as required, exported or contained. 
+
+You can't access classes that are not exported by their module. You can get them as a Class object by using reflection, however, you cannot invoke them. 
+
+However, you can add another command in the module-info.java file to allow reflective access to a class from a different module that doesn't export it, likeso: 
+
+```
+module com.agiledeveloper.thesecond {
+	requires com.agiledeveloper.first;
+	opens com.agiledeveloper.stuff.MyHelper;
+}
+```
+
+Any traditional jar running in the classpath is an ***unnamed module***. Any traditional jar running in the modulepath is an ***automatic module***. If you run a modular jar on the modulepath, it is an ***explicitely named module***. 
+
+Split packages are a problem. That's where you have classes for the same package in different jars. A reasonable use for this is where you have tests and library classes in different jars, but call them the same package name. In that case, use `patch-modules.` Don't know how to do that right now, have to look it up later. 
+
+Automatic modules can access unnamed modules, but unnamed modules cannot access automatic modules. If you're in the classpath, you have to stay there. If you're in the module path, you can access stuff in the classpath. It's a security feature. 
+
+**Question to check at home:** if I want to upgrade to Java 9, can I add `module-info.java` files to my packages running in Java 8 without breaking anything? Will the `module-info.java` file break anything in Java 8? I doubt it would, but it would be good to get confirmation. In that case, one could upgrade one's packages and then upgrade to Java 9. 
+
+If you want to do some work towards upgrading without actually upgrading yet, the bare minimum is to write a manifest and claim a name for your project. 
+
+For instance, in the package `mypackage`, create a file `mypackage/whatever.txt` and add this property to it.
+
+`automatic-module-name=com.agiledeveloper.mypackage;`
+
+If you compile Java code that includes your old package, as long as it has a .txt or any other kind of file that specifies an automatic file name, Java will generate a MANIFEST.mf for you in your META-INF folder. 
+
+Don't upgrade from Java 8 to 9 if you can help it. Upgrade all the way from 8 to 12, if possible. It'll be better in the long run. You may have to do more work right away, but it'll reduce the work overall. 
+
+Upgrade from the top down because unnamed modules can't call explicit modules. So, if you upgrade some base library, **every** library or project that uses that also has to have an explicit module name. So, upgrade each of your top level projects first, then work your way down through the dependencies. Practically, that means UI should upgrade each of our web apps first, then start upgrading our internal libraries like account and all the others. 
+
+Venkat advises skipping over LTS versions if you have the time and feel like it.  
+
+
+
+
+
+
+
+
+
