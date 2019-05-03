@@ -3,8 +3,8 @@
 ### Essential Spring Boot
 ***Craig Walls***
 
-Newsletter - tinyletter.com/habuma
-Github - github.com/habuma
+Newsletter: tinyletter.com/habuma
+Github: github.com/habuma
 
 Spring boot CLI provides a way to do command line app development in Groovy, deployed in something like CloudFoundry 
 Spring provides 4 main simplifications/advantages
@@ -15,7 +15,7 @@ Spring provides 4 main simplifications/advantages
 
 Using a Jar file is amenable to deploying in a cloud context because it doesn't delegate configuration responsibility to the application server. War files delegate to the provided configuration in the application server, making configuration sometimes problematic, with no gaurantee that two application servers are configured the same. 
 
-"Make Jar, not War"
+> Make Jar, not War
 
 Spring Initializr makes starting a project easy by allowing you to add dependencies and set your packaging scheme, and then creating a project with the appropriate file structure and settings. 
 
@@ -25,16 +25,21 @@ Tweaking the Initializr to add your own internal dependencies is a possibility. 
 
 If you already have a parent POM (which we do) and you can't use the Spring starter parent POM, you can just move the Spring Boot parent groupId, artifactId and version down and make them a dependency in your project, giving them a scope of import (the scope is important). Alternatively, make the Spring Boot parent POM the parent POM of your organization's parent POM. Parent POM-ception. 
 
-To override the imported Spring version, add a maven property <spring.version> and specify the version you want. Likewise for any other imported dependency.
+To override the imported Spring version, add a maven property 
+<spring.version></spring.version> 
+and specify the version you want. Likewise for any other imported dependency.
 
 If you're going to start using Jar files, it's important to move away from JSPs because they're hard to work with in Jar files. Also, they're just not as good as Thymeleaf or Freemarker or one of the other templating systems.
 
 Spring will automatically detect the appropriate JDBC driver based on the format of the JDBC url. Usually you won't have to specify a driver class unless there's ambiguity. 
 
 Some useful Spring configuration properties are: 
+```
 server.port
 spring.datasource.url
-spring.application.name (does nothing until you deploy Spring app in a container)
+spring.application.name 
+```
+(name does nothing until you deploy Spring app in a container)
 
 YAML for configuration files makes a lot of sense. The structure looks nicer and is easier to read. **Find out how to setup YAML file configuration autocomplete in Intellij**
 
