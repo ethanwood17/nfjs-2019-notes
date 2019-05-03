@@ -1,6 +1,6 @@
-## NFJS 2019 Notes
+# NFJS 2019 Notes
 
-### Essential Spring Boot
+## Essential Spring Boot
 ***Craig Walls***
 
 Newsletter: tinyletter.com/habuma
@@ -59,7 +59,7 @@ public class BooksController {
 ```
 checkout `jq` package for formatting JSON on the commandline
 
-### Continuations and Fibers - The New Frontier for Java
+## Continuations and Fibers - The New Frontier for Java
 ***Venkat Subramaniam***
 
 **Benefits of Single-Threaded Applications**
@@ -147,7 +147,7 @@ This is great for a cloud application, because this decreases the processing/mem
 
 http://www.agiledeveloper.com/downloads.html
 
-##Migrating to Java Modules##
+## Migrating to Java Modules
 ***Venkat Subramaniam***
 
 Introduced in Java 9. 
@@ -224,7 +224,7 @@ Upgrade from the top down because unnamed modules can't call explicit modules. S
 
 Venkat advises skipping over LTS versions if you have the time and feel like it. The reason is that the LTS actually works differently than a lot of people think. Apparently, Oracle will support the LTS version AND all version above it up until the next LTS version for 3 years. So, 11 is an LTS version. You upgrade to 12, you get LTS for 3 years, at which point you have to upgrade to the next LTS version (14 or whatever). So really, you lose nothing by passing the LTS version. 
 
-##Domain Driven Serverless Design##
+## Domain Driven Serverless Design
 ***Matt Stine*** 
 
 **Note: This talk was somewhat interesting, but ultimately not very helpful.**
