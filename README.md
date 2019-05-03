@@ -222,7 +222,59 @@ Don't upgrade from Java 8 to 9 if you can help it. Upgrade all the way from 8 to
 
 Upgrade from the top down because unnamed modules can't call explicit modules. So, if you upgrade some base library, **every** library or project that uses that also has to have an explicit module name. So, upgrade each of your top level projects first, then work your way down through the dependencies. Practically, that means UI should upgrade each of our web apps first, then start upgrading our internal libraries like account and all the others. 
 
-Venkat advises skipping over LTS versions if you have the time and feel like it.  
+Venkat advises skipping over LTS versions if you have the time and feel like it. The reason is that the LTS actually works differently than a lot of people think. Apparently, Oracle will support the LTS version AND all version above it up until the next LTS version for 3 years. So, 11 is an LTS version. You upgrade to 12, you get LTS for 3 years, at which point you have to upgrade to the next LTS version (14 or whatever). So really, you lose nothing by passing the LTS version. 
+
+##Domain Driven Serverless Design##
+***Matt Stine*** 
+
+**Note: This talk was somewhat interesting, but ultimately not very helpful.**
+
+Heroku was one of the first places to fully flesh out the idea of an application platform, creating something called the 12 factor application (don't know what that is). 
+
+Dotcloud was a company focused on PaaS, but they didn't takeoff so they pivoted and developed tooling to run in a containerized environment, and eventually rebranded to Docker. 
+
+Container Orchestrator| Application Platform | Serverless Functions
+	Kubernets, etc	  |		Heroku, etc		 |		Lambda
+
+
+As you go left to right, lower complexity, higher efficiency
+As you go right to left, fewer constraints and more flexibility
+
+Start out serverless, but if you need lower latency or high throughput (i.e. your function will be constantly executing), then migrate to a container. Otherwise, your serverless function will suffer from startup time cost and automatic shutoffs. 
+
+A problem one can run into in the serverless environment is decomposing services into functions too eagerly, which is an antipattern. Not everything needs to be its own independent function. Each layer of decomposition increases latency and maintenance cost, so be mindful in your decomposition. If a function always executes relative to another, they should ***most likely*** be a single function. 
+
+At some point on a cost graph, the serverless and PaaS costs meet and invert. So it's important to know the uptime and invocation of your serverless function, because if it's always on, you're probably better off putting your function in a container on a server. 
+
+A natural candidate for a serverless method is a batch job. It needs to perform at high efficiency, but only rarely. 
+
+For the future: how about systems that are able to connect, deploy, monitor and scale themselves? Basically, a system that monitors its own efficiency graphs, and self-allocates resources as needed to improve those metrics. Essentially, an EBS sort of system, but for everything. 
+
+If you operate based on an event-driven architecture, your operations may be good candidates for serverless operations. If you don't operate based on events, maybe if you're doing constant data manipulation or controlling some piece of hardware, then serverless won't work well for you. 
+
+Domain Driven Design seeks to separate different interpretations of entities or processes across different domains. In other words, DDD seeks to decouple the Shipping implementation of Order from the Payments implementation. A change to the way an Order is payed for should not affect how the payment is shipped. 
+
+Look up **context mapping** and **bounded contexts**. 
+
+If you directly aggregate multiple objects, you may inadvertently create very large aggregates that have very large bounded contexts, meaning a change to any of the items contained in that context could break something. 
+
+An example: If you change the ID of Product, you've not only broken Line Item but also all Orders that include that. Instead, do the right side architecture. Product Id is an immutable data object, and other items reference it. If they need to change their value, they point to a different Product Id object, so they only change their reference, creating a bounded domain around themselves Product Id, excluding everything else. 
+
+		Domain 								Domain 1
+----------------------                   --------------
+|	Order 			 |					 |	Order     | 	  Domain 2
+|	  ^				 |					 |	  ^		  |-----------------------|
+|	  |				 |					 |	  |		  |	 					  |
+|	Line <-- Product |                   |   Line <-- | Product   --> Product |
+|	Item 			 |					 |	 Item 	  |	  ID 				  |	
+----------------------                   --------------------------------------
+
+
+So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
+
+Tons of graphics of architectures using AWS based on your domain requirements. For instance, if you need to be able to publish events based on input to your system, you'll follow one architecture. But if you don't need to do that, you'll follow a different one. 
+
+
 
 
 
