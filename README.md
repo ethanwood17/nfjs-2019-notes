@@ -151,7 +151,7 @@ http://www.agiledeveloper.com/downloads.html
 ***Venkat Subramaniam***
 
 Introduced in Java 9. 
-One person raised their hand when Venkat asked "Who still uses CORBA.?" Jesus that poor poor guy. 
+One person raised their hand when Venkat asked "Who still uses CORBA?" Jesus that poor poor guy. 
 
 The motivation behind modules is make it easier to exclude dependencies I don't need. For instance, Swing and CORBA. Most people don't need them because they'll never, ever use them, but they're still in the JDK. 
 
@@ -233,8 +233,9 @@ Heroku was one of the first places to fully flesh out the idea of an application
 
 Dotcloud was a company focused on PaaS, but they didn't takeoff so they pivoted and developed tooling to run in a containerized environment, and eventually rebranded to Docker. 
 
-Container Orchestrator| Application Platform | Serverless Functions
-	Kubernets, etc	  |		Heroku, etc		 |		Lambda
+|Container Orchestrator| Application Platform | Serverless Functions |
+|----------------------|----------------------|--------------------- |
+|	Kubernets, etc	   |	Heroku, etc		  |		Lambda 			 |
 
 
 As you go left to right, lower complexity, higher efficiency
@@ -261,13 +262,12 @@ If you directly aggregate multiple objects, you may inadvertently create very la
 An example: If you change the ID of Product, you've not only broken Line Item but also all Orders that include that. Instead, do the right side architecture. Product Id is an immutable data object, and other items reference it. If they need to change their value, they point to a different Product Id object, so they only change their reference, creating a bounded domain around themselves Product Id, excluding everything else. 
 
 		Domain 								Domain 1
-----------------------                   --------------
-|	Order 			 |					 |	Order     | 	  Domain 2
-|	  ^				 |					 |	  ^		  |-----------------------|
-|	  |				 |					 |	  |		  |	 					  |
-|	Line <-- Product |                   |   Line <-- | Product   --> Product |
-|	Item 			 |					 |	 Item 	  |	  ID 				  |	
-----------------------                   --------------------------------------
+---------------------------------------------------------------------------------------
+	Order 			  			|	 		Order       Domain 2
+	  ^				  			|	 	  	  ^		  
+	  |				  			|	 	      |		   	 					  
+	Line <-- Product            |            Line <--   Product   --> Product 
+	Item 			  			|	 	     Item 	   	  ID 				  
 
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
