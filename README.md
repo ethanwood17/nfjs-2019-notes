@@ -47,7 +47,7 @@ If you wanted to, you could annotate the Spring main class with every annotation
 
 If you're using Lombok, you can delete your args contstructor in your Spring Controller class. Just include your Bean (no @Autowired) and add the @RequiredArgsConstructor annotation from Lombok to the class. However, **only works from Spring 4.x**. So probably won't work for UI. 
 
-```
+```java
 @RestController
 @RequiredArgsConstructor
 public class BooksController {
@@ -79,7 +79,7 @@ What's the difference between parallel and concurrent. Parallelism is when two p
 
 You can accomplish this sort of thing already with Kotlin
 
-```
+```java
 suspend String task1() {
 	println("foo")
 	yield()
@@ -93,7 +93,7 @@ main() {
 
 Java is implementing this workflow through ***continuations***. 
 
-```
+```java
 import java.lang.Continuation.*
 
 public class Sample {
@@ -123,7 +123,7 @@ public class Sample {
 Fibers are managed by the JVM and not by the operating system.
 When a fiber blocks (waits for a resource), that specific task waits, but not the underlying thread. 
 
-```
+```java
 public class Sample {
 	public static void doWork(){
 		System.out.println("Do work");
@@ -173,14 +173,14 @@ To define a module, add a file called `module-info.java`. This file has to go in
 Java won't make you use different module and package names, but you should
 
 module-info.java in package First
-```
+```java 
 module com.agiledeveloper.thefirst {
 	exports com.agiledeveloper.first;
 }
 ```
 
 module-info.java in package Second
-```
+```java
 module com.agiledeveloper.thesecond {
 	requires com.agiledeveloper.first;
 }
@@ -195,7 +195,7 @@ You can't access classes that are not exported by their module. You can get them
 
 However, you can add another command in the module-info.java file to allow reflective access to a class from a different module that doesn't export it, likeso: 
 
-```
+```java
 module com.agiledeveloper.thesecond {
 	requires com.agiledeveloper.first;
 	opens com.agiledeveloper.stuff.MyHelper;
@@ -439,7 +439,7 @@ var names (
 )
 ```
 
-Every higher order Go type is eventually distilled down to a primitive, meaning null pointers are impossible unless you explicitely set a reference to NIL; 
+Every higher order Go type is eventually distilled down to a primitive, meaning null pointers are impossible unless you explicitely set a reference to `nil`; 
 
 Go ships with a formatting tool, `go-fmt`, that automatically enforces proper Go syntax and formatting, such as whitespace (thus killing the inane tabs vs spaces debate), trailing commas in array declarations, etc.
 
@@ -481,11 +481,11 @@ func fullName(s string) (msg string, e error) {
 
 Unused imports are a compiler error. Go automatically updates the import to the most recent HEAD version unless you've explicitely pinned it to a particular version. 
 
-Only has one loop construct, the `for` loop, but you can wrangle these into while or forever loops if you want. `while` keyword doesn't exist because it's silly. 
+Only has one loop construct, the `for` loop, but you can wrangle these into while or forever loops if you want. The `while` keyword doesn't exist because it's silly. 
 
 Arrays are value types in Go. Meaning, if I create an array and then assign its value to another array, I haven't changed the reference, I've created 2 copies of the array, doubling my memory. So, don't do that. 
 
-Instead, Go has slices. Slices look very similar to arrays, but are slightly different. Note that the declaration below has no size ([5]) or the variable array declaration syntax ([..])
+Instead, Go has slices. Slices look very similar to arrays, but are slightly different. Note that the declaration below has no size (`[5]`) or the variable array declaration syntax (`[..]`)
 
 ```go
 //slice declaration
@@ -541,6 +541,76 @@ type Named interface {
 }
 ```
 
+Go has pointers, and the syntax is basically the same as in C-family languages. 
+
+Passing a pointer to a function
+```go
+func (p *Person) byRef() {
+	
+}
+```
+assigning a reference to a variable
+```
+ptr := &raju
+```
+
+Goroutines are kind of like threads. At least, they serve a similar purpose. The `go` keyword creates a goroutine.
+
+```go
+func main() {
+	 simple()
+
+	 wg.Add(1)
+	 //using go keyword essentially creates a thread, but it's different
+	 go routine()
+	 wg.wait()
+}
+```
+
+A few useful Go tools: 
+- `Godoc`
+- `Go fmt`
+- `Golint`
+- `Go get`
+- `Goimports`
+
+## Graal the Magnificent
+***Daniel Hinojosa***
+
+Graal is a universal virtual VM. It can run multiple languages in a VM context. Built towards Linux and MacOSX, no Windows version. Oracle based project. 
+
+Supports all JVM languages naturally, also Rust, C/C++, Swift, R, Python, Ruby, and a few others. 
+
+Graal has LLVM support for some langauges including Rust and C/C++
+
+http://llvm.org
+
+GraalVM is available in Dockerhub. Meant to be included in a Docker Compose file. 
+
+To set up Graal, just make sure your `$JAVAHOME` variable is set then download and install the `tar.gz` file.
+
+Graal can convert executable packages or files in other langauges (like JARs) into native-executables. 
+
+```bash
+clang -c -O1 -emit-llvm hello.c
+```
+The command above emits a file called `hello.bc`, which can be run with `lli hello.bc`
+
+The only advantage of GraalVM over other Java VMs (past JDK8) is the ability to produce the native executable. 
+
+The real performance boost speedwise that Graal brings is replacing the JVM C2 JIT compiler written in C++ with a Java implementation, due to changes made in JDK 9 that allow swapping those out (JVMCI). 
+
+The polyglot benefits of GraalVM is you can write code in multiple langauges and run them on the same JVM. For instance, hiring a Python ML engineer or data scientist, and having them write and run their Python code on the same VM as the Java code the rest of your shop writes. 
+
+```java
+Context context = Context.newBuilder().allowAllAccess(true).build();
+String input = "{\"artist\" : \"Alexandra Savior\"}";
+context.eval("ruby", "require json");
+Value function = context.eval("ruby", "Proc.new{|x| JSON.parse(x)}");
+```
+Essentially, you can run Ruby in Java, or any of the other languages in any of the other languages. So, if you want to use some library in some other language (like numpy in Java), you just import and run it in Java. 
+
+https://quarkus.io
 
 
 
