@@ -589,14 +589,14 @@ GraalVM is available in Dockerhub. Meant to be included in a Docker Compose file
 
 To set up Graal, just make sure your `$JAVAHOME` variable is set then download and install the `tar.gz` file.
 
-Graal can convert executable packages or files in other langauges (like JARs) into native-executables. 
+Graal can convert executable packages or files in other langauges (like JARs) into native images. 
 
 ```bash
 clang -c -O1 -emit-llvm hello.c
 ```
 The command above emits a file called `hello.bc`, which can be run with `lli hello.bc`
 
-The only advantage of GraalVM over other Java VMs (past JDK8) is the ability to produce the native executable. 
+The only advantage of GraalVM over other Java VMs (past JDK8) is the ability to produce the native image. 
 
 The real performance boost speedwise that Graal brings is replacing the JVM C2 JIT compiler written in C++ with a Java implementation, due to changes made in JDK 9 that allow swapping those out (JVMCI). 
 
@@ -611,6 +611,12 @@ Value function = context.eval("ruby", "Proc.new{|x| JSON.parse(x)}");
 Essentially, you can run Ruby in Java, or any of the other languages in any of the other languages. So, if you want to use some library in some other language (like numpy in Java), you just import and run it in Java. 
 
 https://quarkus.io
+
+The JDK version 9 improves performance substantially. It's roughly 50% faster. 
+
+The Graal native image is really fast. To print a thousand primes in Scala, it cuts the time down from 1.3 seconds to 0.00 seconds. 
+
+
 
 
 
