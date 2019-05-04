@@ -261,13 +261,13 @@ If you directly aggregate multiple objects, you may inadvertently create very la
 
 An example: If you change the ID of Product, you've not only broken Line Item but also all Orders that include that. Instead, do the right side architecture. Product Id is an immutable data object, and other items reference it. If they need to change their value, they point to a different Product Id object, so they only change their reference, creating a bounded domain around themselves Product Id, excluding everything else. 
 
-	Domain 								    Domain 1
+	Domain 								    		Domain 1		Domain 2
 
-	Order 			  				 		Order            Domain 2
+	Order 			  				 		Order             			
 	  ^				  				 	  	  ^		  
 	  |				  				 	      |		   	 					  
-	Line <-- Product                         Line <--   Product   --> Product 
-	Item 			  				 	     Item 	   	  ID 				  
+	Line <-- Product						 Line 		<--   Product   --> 	Product 
+	Item 			  				 	     Item 	   	  		ID 				  
 
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
