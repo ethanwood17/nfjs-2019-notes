@@ -385,11 +385,161 @@ Using NLP and neural networks, it's possible to find connections between words. 
 
 Book recommendation
 
-> The Theory that Would Not Die
+> The Theory That Would Not Die
 
 Look into Jupyter notebooks, pretty nice for doing coding examples. 
 
 Some of the most salient uses of NLP would be for a company with inadequate resources, but lots of data. For instance, if your company has a small customer engagement team but many customers, and you get lots of comments or posts on social media, use NLP to analyse the most commonly used words in social media posts that are either compliments or complaints. That could help you find the most pressing problems and needs for improvement, as well as the parts that you're doing the best. 
+
+## Get Go-ing
+***Raju Gandhi***
+
+main.go
+
+```go
+package main
+
+import "fmt"
+
+var name string
+var names = [..]string {
+	"Raju", 
+	"Barrett"
+}
+
+func main() {
+	//type inference through :=
+	name := "raju"
+
+	fmt.Println("Hello %s\n", name)
+
+	//constant declaration, can't use type inference with const
+	const name = "raju"
+}
+```
+
+Go was built by Google to solve problems at Google. One of the big things they wanted to solve was ever increasing build times due to a huge codebase. Go seeks unchanging build times over arbitrarily large surfaces. 
+
+The tooling surrounding Go is very mature. Go is mainly targeted at devops and systems development.
+
+```go
+var names = [5]string
+
+var names = [..]string {
+	"Raju", 
+	"Barrett"
+}
+
+var names (
+	var names = [5]string
+	var names = [..]string {
+		"Raju", 
+		"Barrett"
+	}
+)
+```
+
+Every higher order Go type is eventually distilled down to a primitive, meaning null pointers are impossible unless you explicitely set a reference to NIL; 
+
+Go ships with a formatting tool, `go-fmt`, that automatically enforces proper Go syntax and formatting, such as whitespace (thus killing the inane tabs vs spaces debate), trailing commas in array declarations, etc.
+
+Go distinguishes between public and private variables by using Uppercase or lowercase variable names. 
+
+```go
+var Name string //public
+var name string //private
+```
+
+You have to declare the return type of a function, but it comes after the method signature. 
+
+```go
+func fullName(s string) string {
+	return fmt.Sprintf("hello %s", s)
+}
+```
+
+How to return multiple types from a function. If you return multiple types, you have to explicitely handle each type in your consumer code. I.E., if you return an error type, you have to decide how to consume the error in your code. 
+
+```go
+func fullName(s string) (string, error) {
+	if len(s) == 0 {
+		return "", errors.New("length == 0")
+	}
+	return fmt.Sprintf("hello %s", s), nil
+}
+```
+
+Go also prohibits declaring unused variables. If a variable is not used in your code, the compiler will produce an error. 
+
+If you declare return values with names in the signature of a function, it implicitely declares variables of those names and types in your code. 
+
+```go
+func fullName(s string) (msg string, e error) {
+	msg = "thing" //don't have to use := because msg is already in scope as string type
+}
+```
+
+Unused imports are a compiler error. Go automatically updates the import to the most recent HEAD version unless you've explicitely pinned it to a particular version. 
+
+Only has one loop construct, the `for` loop, but you can wrangle these into while or forever loops if you want. `while` keyword doesn't exist because it's silly. 
+
+Arrays are value types in Go. Meaning, if I create an array and then assign its value to another array, I haven't changed the reference, I've created 2 copies of the array, doubling my memory. So, don't do that. 
+
+Instead, Go has slices. Slices look very similar to arrays, but are slightly different. Note that the declaration below has no size ([5]) or the variable array declaration syntax ([..])
+
+```go
+//slice declaration
+languages := []string (
+		"Go", 
+		"Pascal",
+	)
+```
+
+Go has maps, but has no sets. If you want to use sets, use maps with value keys. 
+
+Go has structs rather than objects. Everything is statically typed and 0-valued, meaning no null reference, and no type inference or mismatch. 
+
+```go
+type Person struct {
+	FirstName, LastName string
+}
+```
+
+No inheritance in Go, which I would say is ***mostly*** nice, but maybe a little problematic at times. 
+
+```go
+import "fmt"
+
+type Person struct {
+	FirstName, LastName string
+}
+
+//function
+func fullName(p Person) string {
+	return fmt.Sprintf("%s %s", p.FirstName, p.LastName)
+}
+
+//method
+func fullName(p Person) fullName() string {
+	return fmt.Sprintf("%s %s", p.FirstName, p.LastName)
+}
+
+func main() {
+	barrett := Person{"Barrett", "Ford"}
+	fmt.Println(fullName(barrett))
+	fmt.Println(barrett.fullName())
+}
+```
+
+Go prevents the problem of Monkey-patching (adding bad functions onto objects or types) by restricting you to only adding methods to structs that you own. In other words, you can't take the `string` type and add your own methods to it, you can only consume it in a function. 
+
+Interface declaration is clean and simple in Go. Also, as long as a struct "looks" like an interface, in other words it has the same values or functions, that struct fulfills the interface contract for that interface and doesn't have to explicitely declare that it implements it. 
+
+```go
+type Named interface {
+	fullName() string
+}
+```
 
 
 
