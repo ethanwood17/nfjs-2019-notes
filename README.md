@@ -309,6 +309,38 @@ Good place to see continuous deployment tools for Kubernetes
 
 KataKoda JavaJon for Kubernetes + Java tutorials
 
+## Machine Learning: Overview
+***Brian Sletten***
+
+It's important to know what your data's like, and it's important to have well-formed data. In the 1980s, the highest starting salary by major was in Geography, because Michael Jordan studied that in college before joining the NBA. Not removing him as an outlier from the dataset, he skews the entire set. 
+
+Prior to starting a machine learning program, it's important to perform some exploratory data analysis. The idea is to get the warp and warf of the data in order to match your analysis correctly. 
+
+You don't want to just memorize data about objects. It's important to know what data points are important. "Years of experience" is probably a more important data point for predicting your salary than "Name" is. Collecting and analyzing too many data points is called **overfitting**. 
+
+Brian doesn't worry about the existential threat machine learning and data aggregation pose. Rather, he worries that the disruption of established fields will create loss of jobs and problems similar to that. 
+
+Brian says in Watson there's no sentience, nothing fancy. It's just pattern matching. But isn't that all we are? Highly evolved pattern matchers. 
+
+9/11 and the application of data analysis to terror prediction and security concerns were drivers of the current data analysis boom. Government funding for data analysis and statistical research produced a burst of activity. Also, the 2008 financial crisis caused some Wall Street analysis and data experts to jump ship and go to other companies. 
+
+Really nice analogy between data aggregators today and Tycho Brahe/Johannes Kepler/Isaac Newton. Brahe never developed a solid explanatory theory around planetary motion, but his data was integral to Kepler's development of the elliptical theory of motion, which was essential to Newton's development of the general theory of motion. Right now, data is being aggregated but not explained adequately. We need Keplers and Newtons. 
+
+**The Curse of Dimensionality**
+
+http://cleverowl.uk/2016/02/06/curse-of-dimensionality-explained/
+
+Some useful algorithms 
+
+- linear regression
+- k-nearest neighbor
+- Naive Bayes
+- Decision trees (random forest)
+- k-means clustering
+
+Brian Sletten ML gists, ML recs
+
+
 
 
 
