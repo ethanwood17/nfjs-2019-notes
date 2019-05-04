@@ -288,13 +288,13 @@ There are still things to worry about with serverless architectures, like effici
 Serverless functions have their background in the mobile development community. Because some mobile developers have to write small amounts of server based code that serve a resource, or respond to a request, they wanted to accomplish that with the minimal infrastructure footprint. So, cloud providers began developing the idea of serverless functions. 
 
 Cloud Native Landscape Foundation
--https://landscape.cncf.io
--https://s.cncf.io
+- https://landscape.cncf.io
+- https://s.cncf.io
 
 Good resource to find cloud resource providers. 
 
 Serverless
--http://serverless.com
+- http://serverless.com
 
 They're developing a CLI tool to deploy serverless resources, provider independent. 
 
