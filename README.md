@@ -263,16 +263,52 @@ An example: If you change the ID of Product, you've not only broken Line Item bu
 
 		Domain 								Domain 1
 ---------------------------------------------------------------------------------------
-	Order 			  			|	 		Order       Domain 2
-	  ^				  			|	 	  	  ^		  
-	  |				  			|	 	      |		   	 					  
-	Line <-- Product            |            Line <--   Product   --> Product 
-	Item 			  			|	 	     Item 	   	  ID 				  
+	Order 			  				 		Order       Domain 2
+	  ^				  				 	  	  ^		  
+	  |				  				 	      |		   	 					  
+	Line <-- Product                         Line <--   Product   --> Product 
+	Item 			  				 	     Item 	   	  ID 				  
 
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
 
 Tons of graphics of architectures using AWS based on your domain requirements. For instance, if you need to be able to publish events based on input to your system, you'll follow one architecture. But if you don't need to do that, you'll follow a different one. 
+
+## Understanding Kubernetes
+***Jonathan Johnson***
+
+The guy giving this talk look like Wallace.
+
+It may not be very safe to base things on "functions" if you're worried about vendor lock in. At least with AWS, you have to set up serverless functions and configure them to the AWS platform. They are not mobile, whereas Kubernetes or some other containerization schema is mobile and largely vendor independent. 
+
+Maybe functions are fine, but sparingly, and not for your entire set of processes. 
+
+There are still things to worry about with serverless architectures, like efficiency, performance, cost, etc. They don't solve everything. 
+
+Serverless functions have their background in the mobile development community. Because some mobile developers have to write small amounts of server based code that serve a resource, or respond to a request, they wanted to accomplish that with the minimal infrastructure footprint. So, cloud providers began developing the idea of serverless functions. 
+
+Cloud Native Landscape Foundation
+https://landscape.cncf.io
+https://s.cncf.io
+Good resource to find cloud resource providers. 
+
+Serverless
+http://serverless.com
+They're developing a CLI tool to deploy serverless resources, provider independent. 
+
+He has tutorials on KataKoda about Kubernetes. ***Definitely want to give them a look.***We did the one about Kubeless in the session today, followed by the one about OpenFaaS. 
+
+Really the biggest takeaway from this talk is to go to KataKoda and do this guy's tutorials. They seem pretty solid. 
+
+Kubernetes seems like a very extensible technology to control Docker instances. 
+
+https://cd.foundation
+Good place to see continuous deployment tools for Kubernetes 
+
+**What is JenkinsX?**
+
+KataKoda JavaJon for Kubernetes + Java tutorials
+
 
 
 
