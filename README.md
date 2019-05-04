@@ -261,13 +261,13 @@ If you directly aggregate multiple objects, you may inadvertently create very la
 
 An example: If you change the ID of Product, you've not only broken Line Item but also all Orders that include that. Instead, do the right side architecture. Product Id is an immutable data object, and other items reference it. If they need to change their value, they point to a different Product Id object, so they only change their reference, creating a bounded domain around themselves Product Id, excluding everything else. 
 
-		Domain 								Domain 1
----------------------------------------------------------------------------------------
-	Order 			  				 		Order       Domain 2
+	Domain 								    		Domain 1		Domain 2
+
+	Order 			  				 		Order             			
 	  ^				  				 	  	  ^		  
 	  |				  				 	      |		   	 					  
-	Line <-- Product                         Line <--   Product   --> Product 
-	Item 			  				 	     Item 	   	  ID 				  
+	Line <-- Product						 Line 		<--   Product   --> 	Product 
+	Item 			  				 	     Item 	   	  		ID 				  
 
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
@@ -288,21 +288,25 @@ There are still things to worry about with serverless architectures, like effici
 Serverless functions have their background in the mobile development community. Because some mobile developers have to write small amounts of server based code that serve a resource, or respond to a request, they wanted to accomplish that with the minimal infrastructure footprint. So, cloud providers began developing the idea of serverless functions. 
 
 Cloud Native Landscape Foundation
-https://landscape.cncf.io
-https://s.cncf.io
+- https://landscape.cncf.io
+- https://s.cncf.io
+
 Good resource to find cloud resource providers. 
 
 Serverless
-http://serverless.com
+- http://serverless.com
+
 They're developing a CLI tool to deploy serverless resources, provider independent. 
 
-He has tutorials on KataKoda about Kubernetes. ***Definitely want to give them a look.***We did the one about Kubeless in the session today, followed by the one about OpenFaaS. 
+He has tutorials on KataKoda about Kubernetes. ***Definitely want to give them a look.***
+We did the one about Kubeless in the session today, followed by the one about OpenFaaS. 
 
 Really the biggest takeaway from this talk is to go to KataKoda and do this guy's tutorials. They seem pretty solid. 
 
 Kubernetes seems like a very extensible technology to control Docker instances. 
 
 https://cd.foundation
+
 Good place to see continuous deployment tools for Kubernetes 
 
 **What is JenkinsX?**
