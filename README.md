@@ -344,6 +344,52 @@ Some useful algorithms
 
 Brian Sletten ML gists, ML recs
 
+## Machine Learning: Natural Language Processing
+***Brian Sletten***
+
+Natural Language Processing is highly context dependent. Asking Alexa or Siri to do something at home may be different than asking the same thing at work. So context is important and boundaries need to be established. 
+
+A new field that hasn't been explored completely yet is generative NLP. Rather than answering questions, generative NLP produces language content. For instance, a system that produces documentation for a process or product, or a system that writes journlism articles. 
+
+Stemming and lemmatization, look up. 
+
+Different ways to parse documents
+
+- Bag of words
+	- Easy and quick, but loses context and word order
+- N-gram model
+	- splites documents into chunks of N words, which helps to preserve context
+- Term frequency
+	- frequency of words, often needs to be normalized to account for common words like prepositions, article adjectives, particles, etc. 
+- Inverse Document frequency (look up)
+
+Lonely words: Words are often treated as isolated indices. In other words, dog, cat and animal are all treated as distinct words, ignoring the relationships between them. 
+
+t-SNE (t-stochastic network embedding) visualizations of word embeddings
+
+In a graph of words by location in relation to other words, words will cluster in similar areas based on meaning. For instance, words about days of the week will often cluster together, but weekend and weekday words will be slightly separated. 
+
+Vector space model, latent semantic analysis. 
+
+Word2Vec
+
+http://www.mccormickml.com
+
+https://deeplearning4j.org/ 
+
+seems like a good place to do some research and learning. 
+
+https://wiki.dbpedia.org/
+
+Using NLP and neural networks, it's possible to find connections between words. Training a model against a small set of sentences can find connections between the word "day" and the words "night", "week" and "year".
+
+Book recommendation
+
+> The Theory that Would Not Die
+
+Look into Jupyter notebooks, pretty nice for doing coding examples. 
+
+Some of the most salient uses of NLP would be for a company with inadequate resources, but lots of data. For instance, if your company has a small customer engagement team but many customers, and you get lots of comments or posts on social media, use NLP to analyse the most commonly used words in social media posts that are either compliments or complaints. That could help you find the most pressing problems and needs for improvement, as well as the parts that you're doing the best. 
 
 
 
