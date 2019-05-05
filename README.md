@@ -649,17 +649,3 @@ Blazor is a Microsoft thing that allows you to build .NET applications that can 
 So the MVP for WebAssembly is already complete. Some of the things coming later are streaming compilation, a better compiler, 64 bit integers, etc. 
 
 https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
