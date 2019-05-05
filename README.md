@@ -616,6 +616,41 @@ The JDK version 9 improves performance substantially. It's roughly 50% faster.
 
 The Graal native image is really fast. To print a thousand primes in Scala, it cuts the time down from 1.3 seconds to 0.00 seconds. 
 
+## WebAssembly
+***Brian Slettern***
+
+In the primordial soup of the early internet, there were several possible languages which web applications could be written in to run in a browser. However, it was impossible for web browsers to keep up with the changing features of every language. So, the pruning began. 
+
+Nowadays, is a single language that most web development is centered around: JavaScript. However, JS is not an optimal language for most kinds of development, including web development. How to solve the issue of having only one reasonable language for web development, one that's suboptimal? 
+
+**Enter WebAssembly.**
+
+http://webassembly.org/demo
+
+http://webassembly.org/docs/mvp
+
+
+WebAssembly makes it possible to run desktop applications in the browser. Companies are interested in this because it allows them to program, test and build their application once and target all platforms, as long as those platforms are capable of running a WebAssembly enabled browser. That is significantly easier than writing multiple versions of the app targetting each system. 
+
+JavaScript has certain limitations that makes it suboptimal. For instance, the lack of pointers. In order to mimic the functionality of pointers, some JavaScript engines use arrays of addresses that approximate the behavior of pointers. These limitations make JavaScript slower than it could be. 
+
+So, the answer is to compile the actual JavaScript to a language that does have the functionality we need. 
+
+WAST is a standard for WebAssembly files
+
+WebAssembly works using a stack machine, just like classical assembly. Some current limitations: no threading, you can only pass numbers around (no higher order entities). However, none of this is a real problem because you probably won't ever be writing code in WebAssembly. Rather, you'll be ***compiling*** your code to WebAssembly. So who cares? 
+
+IPFS (Interplanetary File System)
+
+WebAssembly means whatever program you have compiled towards a single OS can run in a web browser. 
+
+Blazor is a Microsoft thing that allows you to build .NET applications that can run in the browser. 
+
+So the MVP for WebAssembly is already complete. Some of the things coming later are streaming compilation, a better compiler, 64 bit integers, etc. 
+
+https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/
+
+
 
 
 
