@@ -1,5 +1,28 @@
 # NFJS 2019 Notes
 
+Summary of Each Talk
+
+1. Craig Walls was not a super engaging presenter, and his first Spring Boot talk was pretty basic. I didn't stay for the second one because the first was so basic. I learned only 1-2 minor things.
+
+2. Venkat was the best presenter at the conference, and his first talk about Continuations and Fibers in Java and the coming changes to threading was super interesting. While it didn't seem super practical as it was all future features that are 2-3 years away, it was pretty mind-blowing. 
+
+3. Venkat's second talk about Java 9 migration was more practical than the first, and I think UI should implement some of the gradual migration suggestions he had. We ought to be moving towards a newer version of Java, and adding module info and cleaning up our package structure is the appropriate place to start. 
+
+4. I have nothing good to say about Matt Stine's presentation. Worthless. Abysmally boring. The entire presentation was a canned PowerPoint probably made by some 4th tier marketing strategy intern. The entire presentation was really more of a sales pitch for Spring Cloud services and AWS. 0/10 would not do again.
+
+5. Jonathan Johnson was the second best presenter at the conference, in terms of audience engagement. He was fun and interesting, and his talk about Kubernetes was practical and useful. My only complaint was that he mostly just did a Katacoda exercise (that he made), so there wasn't a ton of content you couldn't get by just doing the exercise yourself. That said, he was friendly and his talk was interesting. 
+
+6. Brian Sletten's first talk about machine learning was somewhat interesting, but really not what I was hoping for. The talk was pretty technical and theoretical, with only a small code sample in Jupyter notebooks. I was hoping for more of a demonstration. 
+
+7. Brian Sletten's second talk about ML applied to NLP was more interesting and a little more hands on, but for the most part I had the same complaints. I only stayed because I'm interested in NLP. 
+
+8. Raju Gandhi's talk about Go was very interesting and fun. He live-coded most of the talk, and he showed us important language features. I came away interested in Go. My only minor complaint was he live coded tiny examples of functions and other things just to show us language features. I would have liked to see him make something working, like an API or commandline utility, to demonstrate the language. 
+
+9. Daniel Hinojosa's talk about GraalVM was pretty good. Dan was funny and a decent presenter, but just a little boring. Graal was pretty cool, but I was kind of turned off by the entire idea of running multiple langauges (especially totally different ones) on the same VM. Seemed bloated and scary. Not my cup of tea. Despite that, the performance speedup that Graal seemed to provide was enticing. 
+
+10. Finally, Brian Sletten's WebAssembly talk was out of this world. The best presentation I went to, which surprised me given his weak showing at the ML presentations. WebAssembly promises to fundamentally change the Internet more than anything since the invention of the modern browser and JavaScript in the 90s. A seriously mind-melting talk. I went home and watched an hour of YouTube talks about it that night.
+
+
 ## Essential Spring Boot
 ***Craig Walls***
 
@@ -59,6 +82,8 @@ public class BooksController {
 ```
 checkout `jq` package for formatting JSON on the commandline
 
+
+
 ## Continuations and Fibers - The New Frontier for Java
 ***Venkat Subramaniam***
 
@@ -79,7 +104,7 @@ What's the difference between parallel and concurrent. Parallelism is when two p
 
 You can accomplish this sort of thing already with Kotlin
 
-```java
+```kotlin
 suspend String task1() {
 	println("foo")
 	yield()
@@ -99,21 +124,21 @@ import java.lang.Continuation.*
 public class Sample {
 	public static void doWork(ContinutationScope scope){
 
-	System.out.println("entering do work");
-	yield();
-	System.out.println("step 1");
-	yield();
-	System.out.println("step 2")
-}
+		System.out.println("entering do work");
+		yield();
+		System.out.println("step 1");
+		yield();
+		System.out.println("step 2")
+	}
 
 	public static void main(STring[] args){
-	var scope = new ContinuationScope("sample");
+		var scope = new ContinuationScope("sample");
 
-	Continuation continuation = new Continuation(scope, () -> doWork());
+		Continuation continuation = new Continuation(scope, () -> doWork());
 
-	while(!continuation.isDone()){
-		System.out.println("in the loop");
-	}
+		while(!continuation.isDone()){
+			System.out.println("in the loop");
+		}
 		System.out.println("OK");
 	}
 }
@@ -147,6 +172,8 @@ This is great for a cloud application, because this decreases the processing/mem
 
 http://www.agiledeveloper.com/downloads.html
 
+
+
 ## Migrating to Java Modules
 ***Venkat Subramaniam***
 
@@ -173,6 +200,7 @@ To define a module, add a file called `module-info.java`. This file has to go in
 Java won't make you use different module and package names, but you should
 
 module-info.java in package First
+
 ```java 
 module com.agiledeveloper.thefirst {
 	exports com.agiledeveloper.first;
@@ -180,6 +208,7 @@ module com.agiledeveloper.thefirst {
 ```
 
 module-info.java in package Second
+
 ```java
 module com.agiledeveloper.thesecond {
 	requires com.agiledeveloper.first;
@@ -189,6 +218,7 @@ module com.agiledeveloper.thesecond {
 ```
 
 `jar -f output/mlib/first.jar -d`
+
 Lists module contents as required, exported or contained. 
 
 You can't access classes that are not exported by their module. You can get them as a Class object by using reflection, however, you cannot invoke them. 
@@ -224,10 +254,10 @@ Upgrade from the top down because unnamed modules can't call explicit modules. S
 
 Venkat advises skipping over LTS versions if you have the time and feel like it. The reason is that the LTS actually works differently than a lot of people think. Apparently, Oracle will support the LTS version AND all version above it up until the next LTS version for 3 years. So, 11 is an LTS version. You upgrade to 12, you get LTS for 3 years, at which point you have to upgrade to the next LTS version (14 or whatever). So really, you lose nothing by passing the LTS version. 
 
+
+
 ## Domain Driven Serverless Design
 ***Matt Stine*** 
-
-**Note: This talk was somewhat interesting, but ultimately not very helpful.**
 
 Heroku was one of the first places to fully flesh out the idea of an application platform, creating something called the 12 factor application (don't know what that is). 
 
@@ -261,18 +291,22 @@ If you directly aggregate multiple objects, you may inadvertently create very la
 
 An example: If you change the ID of Product, you've not only broken Line Item but also all Orders that include that. Instead, do the right side architecture. Product Id is an immutable data object, and other items reference it. If they need to change their value, they point to a different Product Id object, so they only change their reference, creating a bounded domain around themselves Product Id, excluding everything else. 
 
-	Domain 								    		Domain 1		Domain 2
+
+```
+	Domain 								    Domain 1		          Domain 2
 
 	Order 			  				 		Order             			
 	  ^				  				 	  	  ^		  
 	  |				  				 	      |		   	 					  
 	Line <-- Product						 Line 		<--   Product   --> 	Product 
 	Item 			  				 	     Item 	   	  		ID 				  
-
+```
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
 
 Tons of graphics of architectures using AWS based on your domain requirements. For instance, if you need to be able to publish events based on input to your system, you'll follow one architecture. But if you don't need to do that, you'll follow a different one. 
+
+
 
 ## Understanding Kubernetes
 ***Jonathan Johnson***
@@ -313,6 +347,8 @@ Good place to see continuous deployment tools for Kubernetes
 
 KataKoda JavaJon for Kubernetes + Java tutorials
 
+
+
 ## Machine Learning: Overview
 ***Brian Sletten***
 
@@ -343,6 +379,8 @@ Some useful algorithms
 - k-means clustering
 
 Brian Sletten ML gists, ML recs
+
+
 
 ## Machine Learning: Natural Language Processing
 ***Brian Sletten***
@@ -544,13 +582,15 @@ type Named interface {
 Go has pointers, and the syntax is basically the same as in C-family languages. 
 
 Passing a pointer to a function
+
 ```go
 func (p *Person) byRef() {
 	
 }
 ```
 assigning a reference to a variable
-```
+
+```go
 ptr := &raju
 ```
 
@@ -617,7 +657,7 @@ The JDK version 9 improves performance substantially. It's roughly 50% faster.
 The Graal native image is really fast. To print a thousand primes in Scala, it cuts the time down from 1.3 seconds to 0.00 seconds. 
 
 ## WebAssembly
-***Brian Slettern***
+***Brian Sletten***
 
 In the primordial soup of the early internet, there were several possible languages which web applications could be written in to run in a browser. However, it was impossible for web browsers to keep up with the changing features of every language. So, the pruning began. 
 
