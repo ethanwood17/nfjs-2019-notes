@@ -293,13 +293,13 @@ An example: If you change the ID of Product, you've not only broken Line Item bu
 
 
 ```
-	Domain 								    Domain 1		          Domain 2
-
-	Order 			  				 		Order             			
-	  ^				  				 	  	  ^		  
-	  |				  				 	      |		   	 					  
-	Line <-- Product						 Line 		<--   Product   --> 	Product 
-	Item 			  				 	     Item 	   	  		ID 				  
+	Domain                  |              Domain 1                  Domain 2
+                            |
+	Order 			  		|		 		Order             			
+	  ^				  		|		 	  	  ^		  
+	  |				  		|		 	      |		   	 					  
+	Line    <-- Product     |                Line      <--    Product   --> 	Product 
+	Item 			  		|		 	     Item 	   	  		ID 				  
 ```
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
