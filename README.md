@@ -1,6 +1,6 @@
 # NFJS 2019 Notes
 
-Summary of Each Talk
+## Summary of Each Talk
 
 1. Craig Walls was not a super engaging presenter, and his first Spring Boot talk was pretty basic. I didn't stay for the second one because the first was so basic. I learned only 1-2 minor things.
 
@@ -293,7 +293,7 @@ An example: If you change the ID of Product, you've not only broken Line Item bu
 
 
 ```
-____________________________            ________________      ________________________________
+_____________________________           ________________      ________________________________
 |         Domain            |           |   Domain 1   |      |        Domain 2              |     
 |                           |           |              |      |                              |
 |   Order                   |           |    Order     |      |                              | 
