@@ -74,9 +74,9 @@ If you're using Lombok, you can delete your args contstructor in your Spring Con
 @RestController
 @RequiredArgsConstructor
 public class BooksController {
-	
-	//autowiring is implicitly added by Spring
-	private BooksRepository repo; 
+    
+    //autowiring is implicitly added by Spring
+    private BooksRepository repo; 
 
 }
 ```
@@ -106,13 +106,13 @@ You can accomplish this sort of thing already with Kotlin
 
 ```kotlin
 suspend String task1() {
-	println("foo")
-	yield()
-	println("bar")
+    println("foo")
+    yield()
+    println("bar")
 }
 
 main() {
-	launch { task1() }
+    launch { task1() }
 }
 ```
 
@@ -122,25 +122,25 @@ Java is implementing this workflow through ***continuations***.
 import java.lang.Continuation.*
 
 public class Sample {
-	public static void doWork(ContinutationScope scope){
+    public static void doWork(ContinutationScope scope){
 
-		System.out.println("entering do work");
-		yield();
-		System.out.println("step 1");
-		yield();
-		System.out.println("step 2")
-	}
+        System.out.println("entering do work");
+        yield();
+        System.out.println("step 1");
+        yield();
+        System.out.println("step 2")
+    }
 
-	public static void main(STring[] args){
-		var scope = new ContinuationScope("sample");
+    public static void main(STring[] args){
+        var scope = new ContinuationScope("sample");
 
-		Continuation continuation = new Continuation(scope, () -> doWork());
+        Continuation continuation = new Continuation(scope, () -> doWork());
 
-		while(!continuation.isDone()){
-			System.out.println("in the loop");
-		}
-		System.out.println("OK");
-	}
+        while(!continuation.isDone()){
+            System.out.println("in the loop");
+        }
+        System.out.println("OK");
+    }
 }
 ```
 
@@ -150,15 +150,15 @@ When a fiber blocks (waits for a resource), that specific task waits, but not th
 
 ```java
 public class Sample {
-	public static void doWork(){
-		System.out.println("Do work");
-	}
+    public static void doWork(){
+        System.out.println("Do work");
+    }
 
-	public static void main(String[] args) {
-		var fiber = Fiber.schedule(() -> doWork());
+    public static void main(String[] args) {
+        var fiber = Fiber.schedule(() -> doWork());
 
-		fiber.join();
-	}
+        fiber.join();
+    }
 }
 ```
 
@@ -203,7 +203,7 @@ module-info.java in package First
 
 ```java 
 module com.agiledeveloper.thefirst {
-	exports com.agiledeveloper.first;
+    exports com.agiledeveloper.first;
 }
 ```
 
@@ -211,7 +211,7 @@ module-info.java in package Second
 
 ```java
 module com.agiledeveloper.thesecond {
-	requires com.agiledeveloper.first;
+    requires com.agiledeveloper.first;
 }
 
 
@@ -227,8 +227,8 @@ However, you can add another command in the module-info.java file to allow refle
 
 ```java
 module com.agiledeveloper.thesecond {
-	requires com.agiledeveloper.first;
-	opens com.agiledeveloper.stuff.MyHelper;
+    requires com.agiledeveloper.first;
+    opens com.agiledeveloper.stuff.MyHelper;
 }
 ```
 
@@ -265,7 +265,7 @@ Dotcloud was a company focused on PaaS, but they didn't takeoff so they pivoted 
 
 |Container Orchestrator| Application Platform | Serverless Functions |
 |----------------------|----------------------|--------------------- |
-|	Kubernets, etc	   |	Heroku, etc		  |		Lambda 			 |
+|   Kubernets, etc     |    Heroku, etc       |     Lambda           |
 
 
 As you go left to right, lower complexity, higher efficiency
@@ -293,13 +293,13 @@ An example: If you change the ID of Product, you've not only broken Line Item bu
 
 
 ```
-	Domain                  |              Domain 1                  Domain 2
+    Domain                  |              Domain 1                  Domain 2
                             |
-	Order 			  		|		 		Order             			
-	  ^				  		|		 	  	  ^		  
-	  |				  		|		 	      |		   	 					  
-	Line    <-- Product     |                Line      <--    Product   --> 	Product 
-	Item 			  		|		 	     Item 	   	  		ID 				  
+    Order                   |               Order                       
+      ^                     |                 ^       
+      |                     |                 |                               
+    Line    <-- Product     |                Line      <--    Product   -->     Product 
+    Item                    |                Item               ID                
 ```
 
 So he extolls the virtues of Hexagonal Architecture, which I don't know anything about. Seems kind of culty. 
@@ -394,11 +394,11 @@ Stemming and lemmatization, look up.
 Different ways to parse documents
 
 - Bag of words
-	- Easy and quick, but loses context and word order
+    - Easy and quick, but loses context and word order
 - N-gram model
-	- splites documents into chunks of N words, which helps to preserve context
+    - splites documents into chunks of N words, which helps to preserve context
 - Term frequency
-	- frequency of words, often needs to be normalized to account for common words like prepositions, article adjectives, particles, etc. 
+    - frequency of words, often needs to be normalized to account for common words like prepositions, article adjectives, particles, etc. 
 - Inverse Document frequency (look up)
 
 Lonely words: Words are often treated as isolated indices. In other words, dog, cat and animal are all treated as distinct words, ignoring the relationships between them. 
@@ -441,18 +441,18 @@ import "fmt"
 
 var name string
 var names = [..]string {
-	"Raju", 
-	"Barrett"
+    "Raju", 
+    "Barrett"
 }
 
 func main() {
-	//type inference through :=
-	name := "raju"
+    //type inference through :=
+    name := "raju"
 
-	fmt.Println("Hello %s\n", name)
+    fmt.Println("Hello %s\n", name)
 
-	//constant declaration, can't use type inference with const
-	const name = "raju"
+    //constant declaration, can't use type inference with const
+    const name = "raju"
 }
 ```
 
@@ -464,16 +464,16 @@ The tooling surrounding Go is very mature. Go is mainly targeted at devops and s
 var names = [5]string
 
 var names = [..]string {
-	"Raju", 
-	"Barrett"
+    "Raju", 
+    "Barrett"
 }
 
 var names (
-	var names = [5]string
-	var names = [..]string {
-		"Raju", 
-		"Barrett"
-	}
+    var names = [5]string
+    var names = [..]string {
+        "Raju", 
+        "Barrett"
+    }
 )
 ```
 
@@ -492,7 +492,7 @@ You have to declare the return type of a function, but it comes after the method
 
 ```go
 func fullName(s string) string {
-	return fmt.Sprintf("hello %s", s)
+    return fmt.Sprintf("hello %s", s)
 }
 ```
 
@@ -500,10 +500,10 @@ How to return multiple types from a function. If you return multiple types, you 
 
 ```go
 func fullName(s string) (string, error) {
-	if len(s) == 0 {
-		return "", errors.New("length == 0")
-	}
-	return fmt.Sprintf("hello %s", s), nil
+    if len(s) == 0 {
+        return "", errors.New("length == 0")
+    }
+    return fmt.Sprintf("hello %s", s), nil
 }
 ```
 
@@ -513,7 +513,7 @@ If you declare return values with names in the signature of a function, it impli
 
 ```go
 func fullName(s string) (msg string, e error) {
-	msg = "thing" //don't have to use := because msg is already in scope as string type
+    msg = "thing" //don't have to use := because msg is already in scope as string type
 }
 ```
 
@@ -528,9 +528,9 @@ Instead, Go has slices. Slices look very similar to arrays, but are slightly dif
 ```go
 //slice declaration
 languages := []string (
-		"Go", 
-		"Pascal",
-	)
+        "Go", 
+        "Pascal",
+    )
 ```
 
 Go has maps, but has no sets. If you want to use sets, use maps with value keys. 
@@ -539,7 +539,7 @@ Go has structs rather than objects. Everything is statically typed and 0-valued,
 
 ```go
 type Person struct {
-	FirstName, LastName string
+    FirstName, LastName string
 }
 ```
 
@@ -549,23 +549,23 @@ No inheritance in Go, which I would say is ***mostly*** nice, but maybe a little
 import "fmt"
 
 type Person struct {
-	FirstName, LastName string
+    FirstName, LastName string
 }
 
 //function
 func fullName(p Person) string {
-	return fmt.Sprintf("%s %s", p.FirstName, p.LastName)
+    return fmt.Sprintf("%s %s", p.FirstName, p.LastName)
 }
 
 //method
 func fullName(p Person) fullName() string {
-	return fmt.Sprintf("%s %s", p.FirstName, p.LastName)
+    return fmt.Sprintf("%s %s", p.FirstName, p.LastName)
 }
 
 func main() {
-	barrett := Person{"Barrett", "Ford"}
-	fmt.Println(fullName(barrett))
-	fmt.Println(barrett.fullName())
+    barrett := Person{"Barrett", "Ford"}
+    fmt.Println(fullName(barrett))
+    fmt.Println(barrett.fullName())
 }
 ```
 
@@ -575,7 +575,7 @@ Interface declaration is clean and simple in Go. Also, as long as a struct "look
 
 ```go
 type Named interface {
-	fullName() string
+    fullName() string
 }
 ```
 
@@ -585,7 +585,7 @@ Passing a pointer to a function
 
 ```go
 func (p *Person) byRef() {
-	
+    
 }
 ```
 assigning a reference to a variable
@@ -598,12 +598,12 @@ Goroutines are kind of like threads. At least, they serve a similar purpose. The
 
 ```go
 func main() {
-	 simple()
+     simple()
 
-	 wg.Add(1)
-	 //using go keyword essentially creates a thread, but it's different
-	 go routine()
-	 wg.wait()
+     wg.Add(1)
+     //using go keyword essentially creates a thread, but it's different
+     go routine()
+     wg.wait()
 }
 ```
 
